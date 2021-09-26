@@ -1,9 +1,11 @@
 import boto3
+aws_access_key_id = 'aws_access_key_id'
+aws_secret_access_key = 'aws_secret_access_key'
 
 #Funcion que obtiene el nombre de la ultima imagen subida al bucket
 def get_bucket_name():
-    s3 = boto3.client('s3', region_name='us-east-1', aws_access_key_id='AKIAWO6V2LFETJVHZ6VR', 
-                  aws_secret_access_key='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')
+    s3 = boto3.client('s3', region_name='us-east-1', aws_access_key_id=aws_access_key_id, 
+                  aws_secret_access_key=aws_secret_access_key)
     response = s3.list_objects(Bucket='compress-images6662')
     values = []
     for value in response['Contents']:
@@ -19,8 +21,8 @@ def get_bucket_name():
     
 def detect_labels(photo, bucket):
 
-    client=boto3.client('rekognition', region_name='us-east-1', aws_access_key_id='AKIAWO6V2LFETJVHZ6VR', 
-                  aws_secret_access_key='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')
+    client=boto3.client('rekognition', region_name='us-east-1', aws_access_key_id=aws_access_key_id, 
+                  aws_secret_access_key=aws_secret_access_key)
 
     response = client.detect_labels(Image={'S3Object':{'Bucket':bucket,'Name':photo}},
         MaxLabels=15, MinConfidence=70)
